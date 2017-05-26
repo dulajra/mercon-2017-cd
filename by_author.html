@@ -5158,11 +5158,79 @@
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery.mb-comingsoon.min.js"></script>
-<!-- Script to Activate the Carousel -->
+<div id="moveup" hidden="" style="display: none;">
+    <a id="clk" class="btn btn-default btn-lg">
+        <span class="glyphicon glyphicon-arrow-up"></span>
+    </a>
+</div>
+
 <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
+    $(document).ready(function () {
+        $('#moveup').hide();
+        $(document).on('scroll', function () {
+            if ($(window).height() / 2 < $(window).scrollTop()) {
+                $('#moveup').show('slow');
+            } else {
+                $('#moveup').hide('slow');
+            }
+        });
+        $("#clk").on('click', function () {
+            scrollToTop();
+        });
+    });
+    function scrollToTop() {
+        $('html, body').animate({scrollTop: 0}, 'slow');
+    }
+</script>
+<style>
+    #moveup {
+        position: fixed;
+        right: 10px;
+        bottom: 10px;
+        z-index: 1000;
+    }
+</style>
+<script>
+    (function (document) {
+        'use strict';
+
+        var LightTableFilter = (function (Arr) {
+
+            var _input;
+
+            function _onInputEvent(e) {
+                _input = e.target;
+                var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+                Arr.forEach.call(tables, function (table) {
+                    Arr.forEach.call(table.tBodies, function (tbody) {
+                        Arr.forEach.call(tbody.rows, _filter);
+                    });
+                });
+            }
+
+            function _filter(row) {
+                var text = row.textContent.toLowerCase(),
+                        val = _input.value.toLowerCase();
+                row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+            }
+
+            return {
+                init: function () {
+                    var inputs = document.getElementsByClassName('light-table-filter');
+                    Arr.forEach.call(inputs, function (input) {
+                        input.oninput = _onInputEvent;
+                    });
+                }
+            };
+        })(Array.prototype);
+
+        document.addEventListener('readystatechange', function () {
+            if (document.readyState === 'complete') {
+                LightTableFilter.init();
+            }
+        });
+
+    })(document);
 </script>
 
 
