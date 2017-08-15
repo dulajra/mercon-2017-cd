@@ -3,3 +3,4 @@ This is the official souvenir CD of the Moratuwa Engineering Research Conference
 
 ## Releases
 * MERCON 2016
+* MERCON 2017
